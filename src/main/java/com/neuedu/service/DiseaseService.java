@@ -6,6 +6,7 @@ import com.neuedu.framework.PageInfo;
 
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 /**
  * Keafmd
@@ -72,7 +73,10 @@ public class DiseaseService {
      * @return
      */
 
-    public PageInfo queryListByPage( HttpServletRequest request) {
+    public PageInfo queryListByPage( HttpServletRequest request) throws UnsupportedEncodingException {
+
+
+        request.setCharacterEncoding("utf-8");
 
         PageInfo pageInfo = PageInfo.getPageInfo();
 
@@ -87,15 +91,23 @@ public class DiseaseService {
             pageInfo.setPageSize(pageSize);
         }
 
+        String diseaseName = request.getParameter("diseaseName");
 
-        String sql = " select * from disease   limit ?  , ?  ";
+        if(diseaseName==null){
+            diseaseName = "";
+        }
+
+        diseaseName = "%"+diseaseName.trim()+"%";
+
+        String sql = " select * from disease where disease_name like ?   limit ?  , ?  ";
 
         int start = (pageInfo.getPageNo()-1) * pageInfo.getPageSize() ;
-        List<Disease> list =  diseaseDao.selectList(sql,start,pageInfo.getPageSize());
+        List<Disease> list =  diseaseDao.selectList(sql,diseaseName,start,pageInfo.getPageSize());
 
 
-        String sql2 = "  select count(1) from disease   ";
-        long count =  diseaseDao.selectCount(sql2);
+        String sql2 = "  select count(1) from disease   where disease_name like ?  ";
+        long count =  diseaseDao.selectCount(sql2,diseaseName);
+
 
 
 
