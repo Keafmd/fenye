@@ -30,7 +30,7 @@ public class DiseaseServiceTest {
 
     @Test
     public void queryListByPage() {
-        PageInfo pageInfo = new PageInfo();
+       /* PageInfo pageInfo = new PageInfo();
         pageInfo.setPageNo(2);
         pageInfo.setPageSize(100);
 
@@ -44,6 +44,6 @@ public class DiseaseServiceTest {
 
         for (Object o : pageInfo.getList()) {
             System.out.println(o);
-        }
+        }*/
     }
 }

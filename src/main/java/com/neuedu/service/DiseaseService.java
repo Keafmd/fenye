@@ -1,11 +1,12 @@
 package com.neuedu.service;
+
 import com.neuedu.dao.DiseaseDao;
 import com.neuedu.entity.Disease;
 import com.neuedu.framework.PageInfo;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
 /**
  * Keafmd
  *
@@ -46,7 +47,7 @@ public class DiseaseService {
         return list;
 
     }*/
-    public PageInfo  queryListByPage(PageInfo pageInfo) {
+   /* public PageInfo  queryListByPage(PageInfo pageInfo) {
 
         String sql = " select * from disease  limit ?  , ?  ";
 
@@ -64,7 +65,47 @@ public class DiseaseService {
 
         return pageInfo;
 
+    }*/
+
+    /**
+     * 查询集合，分页
+     * @return
+     */
+
+    public PageInfo queryListByPage( HttpServletRequest request) {
+
+        PageInfo pageInfo = PageInfo.getPageInfo();
+
+        if(request.getParameter("pageNo") != null && !"".equals(request.getParameter("pageNo"))){
+            int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+            pageInfo.setPageNo(pageNo);
+        }
+
+
+        if(request.getParameter("pageSize") != null && !"".equals(request.getParameter("pageSize"))){
+            int pageSize = Integer.parseInt(request.getParameter("pageSize"));
+            pageInfo.setPageSize(pageSize);
+        }
+
+
+        String sql = " select * from disease   limit ?  , ?  ";
+
+        int start = (pageInfo.getPageNo()-1) * pageInfo.getPageSize() ;
+        List<Disease> list =  diseaseDao.selectList(sql,start,pageInfo.getPageSize());
+
+
+        String sql2 = "  select count(1) from disease   ";
+        long count =  diseaseDao.selectCount(sql2);
+
+
+
+        pageInfo.setList(list);
+        pageInfo.setTotalCount((int) count);
+
+        return pageInfo;
+
     }
+
 
 
 

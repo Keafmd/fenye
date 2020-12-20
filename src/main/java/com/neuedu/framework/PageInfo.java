@@ -14,8 +14,8 @@ import java.util.List;
 public class PageInfo {
 
 
-    private Integer pageNo; //查询第几页
-    private Integer pageSize; //每页显示条数
+    private Integer pageNo = 1; //查询第几页
+    private Integer pageSize = 10; //每页显示条数
 
 
     private Integer totalPage ;//总页数
@@ -65,4 +65,8 @@ public class PageInfo {
     public void setList(List list) {
         this.list = list;
     }
+    public static PageInfo getPageInfo(){
+        return new PageInfo();
+    }
+
 }

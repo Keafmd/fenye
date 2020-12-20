@@ -1,5 +1,6 @@
 package com.neuedu.controller;
 import com.neuedu.entity.Disease;
+import com.neuedu.framework.PageInfo;
 import com.neuedu.service.DiseaseService;
 
 import javax.servlet.ServletException;
@@ -28,9 +29,10 @@ public class DiseaseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<Disease> list = diseaseService.queryList();
+//        List<Disease> list = diseaseService.queryList();
+        PageInfo pageInfo = diseaseService.queryListByPage(req);
 
-        req.setAttribute("list",list);
+        req.setAttribute("pageInfo",pageInfo);
         req.getRequestDispatcher("/WEB-INF/disease/disease_list.jsp").forward(req,resp);
 
     }

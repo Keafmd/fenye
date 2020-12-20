@@ -12,6 +12,11 @@
     <title>Title</title>
 </head>
 <body>
+当前页号:2/6 <a href="">首页</a>
+<a href="">上一页</a>
+<a href="">下一页</a>
+<a href="">尾页</a>
+
 
 
 <table border='1' width='100%' cellpadding='0' cellspacing='0'>
@@ -27,8 +32,7 @@
         <td>操作</td>
     </tr>
 
-
-    <c:forEach var="disease" items="${list}" varStatus="stat"  >
+    <c:forEach var="disease" items="${pageInfo.list}" varStatus="stat"  >
         <tr>
             <td><input type="checkbox" name="ids" value="${disease.id}" /></td>
             <td>${stat.count}</td>
