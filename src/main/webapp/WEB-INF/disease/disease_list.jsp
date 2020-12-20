@@ -85,7 +85,17 @@
 
         <a href="javascript:query(${pageInfo.pageNo + 1 })">下一页</a>
         <a href="javascript:query(${pageInfo.totalPage })">尾页</a>
+
     </c:if>
+
+    每页条数：${pageInfo.pageSize},
+    每页条数：<select name = "size">
+        <option value="10" selected="selected" >10</option>
+        <option value="20" >20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+    </select>
+
 
 
 </p>
